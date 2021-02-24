@@ -140,10 +140,6 @@ typedef struct AuthResponse_tag {
 #  define DANGEROUS_DUMPBUF(...) do {} while (0)
 #endif
 
-
-#include "semTable.h"
-/* define the storage for table */
-extern struct sem_table_type sem_table_entry [N_SEM_TABLE_ENTRIES];
 /***** General Primitives ******************************/
 
 static int traceParse = 0;
@@ -5875,9 +5871,6 @@ int mainHttpLoop(HttpServer *server){
   STCBase *base = server->base;
   /* server pointer will be copied/accessible from module->data */
 
-  /* Create semaphore table for datasets */
-  for(int i=0; i < N_SEM_TABLE_ENTRIES; i++)
-    sem_table_entry[i].sem_ID = 0;  /* initialise */
   
   STCModule *httpModule = stcRegisterModule(base,
                                             STC_MODULE_JEDHTTP,
